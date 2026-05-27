@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getApiUrl, normalizeListResponse } from '../lib/api';
+import { API_BASE_URL, normalizeListResponse } from '../lib/api';
 
 interface LeaderboardEntry {
   _id: string;
@@ -15,7 +15,8 @@ const Leaderboard = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch(getApiUrl('leaderboard'))
+    const endpoint = `${API_BASE_URL}/api/leaderboard/`;
+    fetch(endpoint)
       .then(async (res) => {
         if (!res.ok) {
           throw new Error(`Failed to load leaderboard: ${res.status}`);

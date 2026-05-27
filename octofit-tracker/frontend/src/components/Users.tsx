@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getApiUrl, normalizeListResponse } from '../lib/api';
+import { API_BASE_URL, normalizeListResponse } from '../lib/api';
 
 interface User {
   _id: string;
@@ -14,7 +14,8 @@ const Users = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch(getApiUrl('users'))
+    const endpoint = `${API_BASE_URL}/api/users/`;
+    fetch(endpoint)
       .then(async (res) => {
         if (!res.ok) {
           throw new Error(`Failed to load users: ${res.status}`);

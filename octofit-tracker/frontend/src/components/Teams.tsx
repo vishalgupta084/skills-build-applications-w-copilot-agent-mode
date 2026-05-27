@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getApiUrl, normalizeListResponse } from '../lib/api';
+import { API_BASE_URL, normalizeListResponse } from '../lib/api';
 
 interface Team {
   _id: string;
@@ -13,7 +13,8 @@ const Teams = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch(getApiUrl('teams'))
+    const endpoint = `${API_BASE_URL}/api/teams/`;
+    fetch(endpoint)
       .then(async (res) => {
         if (!res.ok) {
           throw new Error(`Failed to load teams: ${res.status}`);

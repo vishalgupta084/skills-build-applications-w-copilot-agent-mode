@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getApiUrl, normalizeListResponse } from '../lib/api';
+import { API_BASE_URL, normalizeListResponse } from '../lib/api';
 
 interface Workout {
   _id: string;
@@ -15,7 +15,8 @@ const Workouts = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch(getApiUrl('workouts'))
+    const endpoint = `${API_BASE_URL}/api/workouts/`;
+    fetch(endpoint)
       .then(async (res) => {
         if (!res.ok) {
           throw new Error(`Failed to load workouts: ${res.status}`);
