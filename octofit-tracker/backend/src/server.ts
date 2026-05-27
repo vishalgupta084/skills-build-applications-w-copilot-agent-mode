@@ -14,6 +14,16 @@ const BASE_URL = CODESPACE_NAME
   : `http://localhost:${PORT}`;
 
 app.use(express.json());
+// Basic CORS middleware to allow frontend to fetch API during development
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+  next();
+});
 app.use('/api/users', usersRouter);
 app.use('/api/teams', teamsRouter);
 app.use('/api/activities', activitiesRouter);
